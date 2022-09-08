@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mo Music</title>
+        <link rel="shortcut icon" href="media/background.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="Mo_Music.css">
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+    </head>
+    <body>
+        <div class="hero">
+            <div class="music">
+                <img src="media/mercy.jpg">
+                <div class="info">
+                    <h1>Mercy - Badshah, feat. Lauren Gottlieb</h1>
+                    <p>Album - ONE (Original Never Ends)</p>
+                    <div id="waveform"></div>
+                    <div class="controls">
+                        <img src="media/play.png" id="playBtn">
+                        <img src="media/stop.png" id="stopBtn">
+                        <img src="media/volume.png" id="volumeBtn">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var playBtn = document.getElementById('playBtn');
+            var stopBtn = document.getElementById('stopBtn');
+            var volumeBtn = document.getElementById('volumeBtn');
+
+            var wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                waveColor: '#dde5ec',
+                progressColor: '#03cebf',
+                barWidth: 4,
+                height: 90,
+                responsive: true,
+                hideScrollbar: true,
+                barRadius: 4
+            });
+            wavesurfer.load('media/mercy-badshah.mp3');
+
+            playBtn.onclick = function() {
+                wavesurfer.playPause();
+                if(playBtn.src.includes("play.png")) {
+                    playBtn.src = "media/pause.png";
+                } else {
+                    playBtn.src = "media/play.png";
+                }
+            }
+
+            stopBtn.onclick = function() {
+                wavesurfer.stop();
+                playBtn.src = "media/play.png";
+            }
+
+            volumeBtn.onclick = function() {
+                wavesurfer.toggleMute();
+                if(volumeBtn.src.includes("volume.png")) {
+                    volumeBtn.src = "media/mute.png";
+                } else {
+                    volumeBtn.src = "media/volume.png";
+                }
+            }
+
+            wavesurfer.on('finish', function () {
+                playBtn.src = "media/play.png";
+                wavesurfer.stop();
+            });
+
+        </script>
+    </body>
+</html>
